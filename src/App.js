@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import StartingScreen from "./src/components/StartingScreen";
-import PlayingScreen from "./src/components/PlayingScreen";
+import StartingScreen from "./components/StartingScreen";
+import PlayingScreen from "./components/PlayingScreen";
 
 function App() {
   return (
