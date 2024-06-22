@@ -1,6 +1,6 @@
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
-import StartingScreen from "./components/StartingScreen";
-import PlayingScreen from "./components/PlayingScreen";
+import StartingScreen from "./pages/StartingScreen";
+import PlayingScreen from "./pages/PlayingScreen";
 
 function App() {
   return (
