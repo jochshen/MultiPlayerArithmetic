@@ -1,44 +1,55 @@
+
+
 import React, { useEffect, useState } from "react";
 import getProblemSet from "../components/ProblemGenerator";
 
 const PlayingScreen = () => {
-  const [answered, setAnswered] = useState(0);
-  const [time, setTime] = useState(120); // Timer state
+  const gameId = 123;
+  const [answered, setAnswered] = useState(0); // keeps track of the number of problems answered
+  const [time, setTime] = useState(15); // Timer state
   const [problems, setProblems] = useState([]); // Use state to store problems
-  const [problem, setProblem] = useState(problems[answered]); // Use state to store current problem
+  const [problem, setProblem] = useState(null); // Use state to store current problem
   const [userAnswer, setUserAnswer] = useState(""); // State to store user's answer
 
+  // useEffect to generate problems on component mount and reset game
   useEffect(() => {
-    const gameId = 123; // Example gameId, replace with actual value as needed
-    const generatedProblems = getProblemSet(gameId, 100); // Call getProblemSet with gameId
-    setProblems(generatedProblems); // Update state with generated problems
-  }, []); // Empty dependency array to run once on component mount
+    const newProblems = getProblemSet(gameId, 100);
+    setProblems(newProblems); // Update state with generated problems
+    setProblem(newProblems[0]); // Set the first problem
+  }, [gameId]); // Dependency on gameId to regenerate problems if gameId changes
 
+  // useEffect for updating problem and userAnswer based on answered
   useEffect(() => {
     setProblem(problems[answered]);
     setUserAnswer("");
-  }, [answered, problems]); // Dependency array to run when answered or problems change
+  }, [answered, problems]);
 
-
+  // Timer logic remains separate
   useEffect(() => {
     const interval = setInterval(() => {
       setTime((prevTime) => {
         if (prevTime === 0) {
           clearInterval(interval);
-          return 0
+          return 0;
         }
         return prevTime - 1;
-      })
+      });
     }, 1000);
     return () => clearInterval(interval);
+  }, []);
 
-  }, [])
-
-
+  const resetGame = () => {
+    setAnswered(0);
+    setTime(30);
+    // Directly setting problems in useEffect eliminates the need to call it here
+    const newProblems = getProblemSet(gameId, 100);
+    setProblems(newProblems);
+    setProblem(newProblems[0]);
+  };
 
   const handleInputChange = (e) => {
     setUserAnswer(e.target.value);
-    if (e.target.value === problems[answered].answer.toString()) {
+    if (e.target.value === problems[answered]?.answer.toString()) {
       setAnswered((prevAnswered) => prevAnswered + 1);
       // Handle correct answer
     }
@@ -67,7 +78,11 @@ const PlayingScreen = () => {
             <div>Loading...</div>
           )
         ) : (
-          <div className="text-4xl font-bold">Game Over</div>
+          <div className=" flex flex-col items-center">
+            <p className="text-3xl font-bold">Game Over</p>
+            <p className="text-3xl ">Score: {answered} </p>
+            <button onClick={resetGame}>Play Again </button>
+          </div>
         )}
       </div>
     </div>
