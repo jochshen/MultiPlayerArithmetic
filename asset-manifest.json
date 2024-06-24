@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/MultiPlayerArithmetic/static/css/main.cbbbbcc7.css",
-    "main.js": "/MultiPlayerArithmetic/static/js/main.6b238e1a.js",
+    "main.js": "/MultiPlayerArithmetic/static/js/main.a8482603.js",
     "index.html": "/MultiPlayerArithmetic/index.html",
     "main.cbbbbcc7.css.map": "/MultiPlayerArithmetic/static/css/main.cbbbbcc7.css.map",
-    "main.6b238e1a.js.map": "/MultiPlayerArithmetic/static/js/main.6b238e1a.js.map"
+    "main.a8482603.js.map": "/MultiPlayerArithmetic/static/js/main.a8482603.js.map"
   },
   "entrypoints": [
     "static/css/main.cbbbbcc7.css",
-    "static/js/main.6b238e1a.js"
+    "static/js/main.a8482603.js"
   ]
 }
