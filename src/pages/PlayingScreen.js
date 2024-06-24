@@ -1,12 +1,17 @@
 
 
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import getProblemSet from "../components/ProblemGenerator";
 
 const PlayingScreen = () => {
+  const query = useQuery();
+  const duration = query.get("duration");
+  const durationInSeconds = Number(duration);
+
   const gameId = 123;
   const [answered, setAnswered] = useState(0); // keeps track of the number of problems answered
-  const [time, setTime] = useState(15); // Timer state
+  const [time, setTime] = useState(durationInSeconds); // Timer state
   const [problems, setProblems] = useState([]); // Use state to store problems
   const [problem, setProblem] = useState(null); // Use state to store current problem
   const [userAnswer, setUserAnswer] = useState(""); // State to store user's answer
@@ -36,11 +41,11 @@ const PlayingScreen = () => {
       });
     }, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [time]);
 
   const resetGame = () => {
     setAnswered(0);
-    setTime(30);
+    setTime(durationInSeconds);
     // Directly setting problems in useEffect eliminates the need to call it here
     const newProblems = getProblemSet(gameId, 100);
     setProblems(newProblems);
@@ -88,5 +93,9 @@ const PlayingScreen = () => {
     </div>
   );
 };
+
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 
 export default PlayingScreen;
