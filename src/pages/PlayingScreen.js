@@ -71,13 +71,13 @@ const PlayingScreen = () => {
           problem ? (
             <div className="flex content-center justify-center text-4xl">
               {problem.question} =
-              <textarea
+              <input
                 id="userAnswer"
                 name="userAnswer"
                 value={userAnswer}
                 onChange={handleInputChange}
                 className="ml-3 h-11 w-44 resize-none overflow-y-hidden border border-black text-4xl focus:outline-none"
-              ></textarea>
+              ></input>
             </div>
           ) : (
             <div>Loading...</div>
